@@ -36,7 +36,7 @@ function xdr(method: string, url: string, params: Object, body: string, endpoint
     timeout: endpoint.timeout
   };
 
-  if (method !== 'GET') {
+  if (method === 'GET') {
     httpConfig.content = body;
   }
 
