@@ -1,4 +1,4 @@
-/*! 4.21.7 / Consumer  */
+/*! 4.24.2 / Consumer  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -65,15 +65,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _pubnubCommon2 = _interopRequireDefault(_pubnubCommon);
 
-	var _networking = __webpack_require__(39);
+	var _networking = __webpack_require__(40);
 
 	var _networking2 = _interopRequireDefault(_networking);
 
-	var _web = __webpack_require__(40);
+	var _web = __webpack_require__(41);
 
 	var _web2 = _interopRequireDefault(_web);
 
-	var _webNode = __webpack_require__(41);
+	var _webNode = __webpack_require__(42);
 
 	var _flow_interfaces = __webpack_require__(5);
 
@@ -239,7 +239,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var deleteMessagesEndpointConfig = _interopRequireWildcard(_delete_messages);
 
-	var _fetch_messages = __webpack_require__(37);
+	var _message_counts = __webpack_require__(37);
+
+	var messageCountsEndpointConfig = _interopRequireWildcard(_message_counts);
+
+	var _fetch_messages = __webpack_require__(38);
 
 	var fetchMessagesEndpointConfig = _interopRequireWildcard(_fetch_messages);
 
@@ -247,7 +251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var timeEndpointConfig = _interopRequireWildcard(_time);
 
-	var _subscribe = __webpack_require__(38);
+	var _subscribe = __webpack_require__(39);
 
 	var subscribeEndpointConfig = _interopRequireWildcard(_subscribe);
 
@@ -344,6 +348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    this.history = _endpoint2.default.bind(this, modules, historyEndpointConfig);
 	    this.deleteMessages = _endpoint2.default.bind(this, modules, deleteMessagesEndpointConfig);
+	    this.messageCounts = _endpoint2.default.bind(this, modules, messageCountsEndpointConfig);
 	    this.fetchMessages = _endpoint2.default.bind(this, modules, fetchMessagesEndpointConfig);
 
 	    this.time = timeEndpoint;
@@ -467,7 +472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    this.setFilterExpression(setup.filterExpression);
 
-	    this.origin = setup.origin || 'pubsub.pndsn.com';
+	    this.origin = setup.origin || 'ps.pndsn.com';
 	    this.secure = setup.ssl || false;
 	    this.restore = setup.restore || false;
 	    this.proxy = setup.proxy;
@@ -519,12 +524,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setAuthKey',
 	    value: function setAuthKey(val) {
-	      this.authKey = val;return this;
+	      this.authKey = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'setCipherKey',
 	    value: function setCipherKey(val) {
-	      this.cipherKey = val;return this;
+	      this.cipherKey = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'getUUID',
@@ -546,7 +553,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setFilterExpression',
 	    value: function setFilterExpression(val) {
-	      this.filterExpression = val;return this;
+	      this.filterExpression = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'getPresenceTimeout',
@@ -573,7 +581,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setHeartbeatInterval',
 	    value: function setHeartbeatInterval(val) {
-	      this._heartbeatInterval = val;return this;
+	      this._heartbeatInterval = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'getSubscribeTimeout',
@@ -583,7 +592,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setSubscribeTimeout',
 	    value: function setSubscribeTimeout(val) {
-	      this._subscribeRequestTimeout = val;return this;
+	      this._subscribeRequestTimeout = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'getTransactionTimeout',
@@ -593,7 +603,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setTransactionTimeout',
 	    value: function setTransactionTimeout(val) {
-	      this._transactionalRequestTimeout = val;return this;
+	      this._transactionalRequestTimeout = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'isSendBeaconEnabled',
@@ -603,12 +614,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setSendBeaconConfig',
 	    value: function setSendBeaconConfig(val) {
-	      this._useSendBeacon = val;return this;
+	      this._useSendBeacon = val;
+	      return this;
 	    }
 	  }, {
 	    key: 'getVersion',
 	    value: function getVersion() {
-	      return '4.21.7';
+	      return '4.24.2';
 	    }
 	  }, {
 	    key: '_decideUUID',
@@ -1458,7 +1470,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 
 	      channelGroups.forEach(function (channelGroup) {
-	        if (channelGroup in _this._channelGroups) _this._channelGroups[channelGroup].state = state;
+	        if (channelGroup in _this._channelGroups) {
+	          _this._channelGroups[channelGroup].state = state;
+	        }
 	      });
 
 	      return this._setStateEndpoint({ state: state, channels: channels, channelGroups: channelGroups }, callback);
@@ -1518,11 +1532,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _args$withPresence = args.withPresence,
 	          withPresence = _args$withPresence === undefined ? false : _args$withPresence,
 	          _args$withHeartbeats = args.withHeartbeats,
-	          withHeartbeats = _args$withHeartbeats === undefined ? true : _args$withHeartbeats;
+	          withHeartbeats = _args$withHeartbeats === undefined ? false : _args$withHeartbeats;
 
 
 	      if (!this._config.subscribeKey || this._config.subscribeKey === '') {
-	        if (console && console.log) console.log('subscribe key missing; aborting subscribe');
+	        if (console && console.log) {
+	          console.log('subscribe key missing; aborting subscribe');
+	        }
 	        return;
 	      }
 
@@ -1626,7 +1642,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'unsubscribeAll',
 	    value: function unsubscribeAll(isOffline) {
-	      this.adaptUnsubscribeChange({ channels: this.getSubscribedChannels(), channelGroups: this.getSubscribedChannelGroups() }, isOffline);
+	      this.adaptUnsubscribeChange({
+	        channels: this.getSubscribedChannels(),
+	        channelGroups: this.getSubscribedChannelGroups()
+	      }, isOffline);
 	    }
 	  }, {
 	    key: 'getHeartbeatChannels',
@@ -1698,12 +1717,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.getSubscribedChannels().forEach(function (channel) {
 	        var channelState = _this5._channels[channel].state;
-	        if (Object.keys(channelState).length) presenceState[channel] = channelState;
+	        if (Object.keys(channelState).length) {
+	          presenceState[channel] = channelState;
+	        }
 	      });
 
 	      this.getSubscribedChannelGroups().forEach(function (channelGroup) {
 	        var channelGroupState = _this5._channelGroups[channelGroup].state;
-	        if (Object.keys(channelGroupState).length) presenceState[channelGroup] = channelGroupState;
+	        if (Object.keys(channelGroupState).length) {
+	          presenceState[channelGroup] = channelGroupState;
+	        }
 	      });
 
 	      var onHeartbeat = function onHeartbeat(status) {
@@ -1726,27 +1749,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._heartbeatEndpoint({
 	        channels: heartbeatChannels,
 	        channelGroups: heartbeatChannelGroups,
-	        state: presenceState }, onHeartbeat.bind(this));
+	        state: presenceState
+	      }, onHeartbeat.bind(this));
 	    }
 	  }, {
 	    key: '_startSubscribeLoop',
 	    value: function _startSubscribeLoop() {
+	      var _this6 = this;
+
 	      this._stopSubscribeLoop();
+	      var presenceState = {};
 	      var channels = [];
 	      var channelGroups = [];
 
 	      Object.keys(this._channels).forEach(function (channel) {
-	        return channels.push(channel);
+	        var channelState = _this6._channels[channel].state;
+
+	        if (Object.keys(channelState).length) {
+	          presenceState[channel] = channelState;
+	        }
+
+	        channels.push(channel);
 	      });
 	      Object.keys(this._presenceChannels).forEach(function (channel) {
-	        return channels.push(channel + '-pnpres');
+	        channels.push(channel + '-pnpres');
 	      });
 
 	      Object.keys(this._channelGroups).forEach(function (channelGroup) {
-	        return channelGroups.push(channelGroup);
+	        var channelGroupState = _this6._channelGroups[channelGroup].state;
+
+	        if (Object.keys(channelGroupState).length) {
+	          presenceState[channelGroup] = channelGroupState;
+	        }
+
+	        channelGroups.push(channelGroup);
 	      });
 	      Object.keys(this._presenceChannelGroups).forEach(function (channelGroup) {
-	        return channelGroups.push(channelGroup + '-pnpres');
+	        channelGroups.push(channelGroup + '-pnpres');
 	      });
 
 	      if (channels.length === 0 && channelGroups.length === 0) {
@@ -1756,6 +1795,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var subscribeArgs = {
 	        channels: channels,
 	        channelGroups: channelGroups,
+	        state: presenceState,
 	        timetoken: this._currentTimetoken,
 	        filterExpression: this._config.filterExpression,
 	        region: this._region
@@ -1766,7 +1806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_processSubscribeResponse',
 	    value: function _processSubscribeResponse(status, payload) {
-	      var _this6 = this;
+	      var _this7 = this;
 
 	      if (status.error) {
 	        if (status.category === _categories2.default.PNTimeoutCategory) {
@@ -1780,19 +1820,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 
 	          this._reconnectionManager.onReconnection(function () {
-	            if (_this6._config.autoNetworkDetection && !_this6._isOnline) {
-	              _this6._isOnline = true;
-	              _this6._listenerManager.announceNetworkUp();
+	            if (_this7._config.autoNetworkDetection && !_this7._isOnline) {
+	              _this7._isOnline = true;
+	              _this7._listenerManager.announceNetworkUp();
 	            }
-	            _this6.reconnect();
-	            _this6._subscriptionStatusAnnounced = true;
+	            _this7.reconnect();
+	            _this7._subscriptionStatusAnnounced = true;
 	            var reconnectedAnnounce = {
 	              category: _categories2.default.PNReconnectedCategory,
 	              operation: status.operation,
-	              lastTimetoken: _this6._lastTimetoken,
-	              currentTimetoken: _this6._currentTimetoken
+	              lastTimetoken: _this7._lastTimetoken,
+	              currentTimetoken: _this7._currentTimetoken
 	            };
-	            _this6._listenerManager.announceStatus(reconnectedAnnounce);
+	            _this7._listenerManager.announceStatus(reconnectedAnnounce);
 	          });
 
 	          this._reconnectionManager.startPolling();
@@ -1854,10 +1894,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        if (dedupeOnSubscribe) {
-	          if (_this6._dedupingManager.isDuplicate(message)) {
+	          if (_this7._dedupingManager.isDuplicate(message)) {
 	            return;
 	          } else {
-	            _this6._dedupingManager.addEntry(message);
+	            _this7._dedupingManager.addEntry(message);
 	          }
 	        }
 
@@ -1897,7 +1937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            announce.timeout = message.payload.timeout;
 	          }
 
-	          _this6._listenerManager.announcePresence(announce);
+	          _this7._listenerManager.announcePresence(announce);
 	        } else {
 	          var _announce = {};
 	          _announce.channel = null;
@@ -1916,13 +1956,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _announce.userMetadata = message.userMetadata;
 	          }
 
-	          if (_this6._config.cipherKey) {
-	            _announce.message = _this6._crypto.decrypt(message.payload);
+	          if (_this7._config.cipherKey) {
+	            _announce.message = _this7._crypto.decrypt(message.payload);
 	          } else {
 	            _announce.message = message.payload;
 	          }
 
-	          _this6._listenerManager.announceMessage(_announce);
+	          _this7._listenerManager.announceMessage(_announce);
 	        }
 	      });
 
@@ -2209,6 +2249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  PNHistoryOperation: 'PNHistoryOperation',
 	  PNDeleteMessagesOperation: 'PNDeleteMessagesOperation',
 	  PNFetchMessagesOperation: 'PNFetchMessagesOperation',
+	  PNMessageCounts: 'PNMessageCountsOperation',
 
 	  PNSubscribeOperation: 'PNSubscribeOperation',
 	  PNUnsubscribeOperation: 'PNUnsubscribeOperation',
@@ -4266,6 +4307,97 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	exports.getOperation = getOperation;
+	exports.validateParams = validateParams;
+	exports.getURL = getURL;
+	exports.getRequestTimeout = getRequestTimeout;
+	exports.isAuthSupported = isAuthSupported;
+	exports.prepareParams = prepareParams;
+	exports.handleResponse = handleResponse;
+
+	var _operations = __webpack_require__(13);
+
+	var _operations2 = _interopRequireDefault(_operations);
+
+	var _utils = __webpack_require__(15);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getOperation() {
+	  return _operations2.default.PNMessageCounts;
+	}
+
+	function validateParams(modules, incomingParams) {
+	  var channels = incomingParams.channels,
+	      timetoken = incomingParams.timetoken,
+	      channelTimetokens = incomingParams.channelTimetokens;
+	  var config = modules.config;
+
+
+	  if (!channels) return 'Missing channel';
+	  if (timetoken && channelTimetokens) return 'timetoken and channelTimetokens are incompatible together';
+	  if (timetoken && channelTimetokens && channelTimetokens.length > 1 && channels.length !== channelTimetokens.length) return 'Length of channelTimetokens and channels do not match';
+	  if (!config.subscribeKey) return 'Missing Subscribe Key';
+	}
+
+	function getURL(modules, incomingParams) {
+	  var channels = incomingParams.channels;
+	  var config = modules.config;
+
+
+	  var stringifiedChannels = channels.join(',');
+
+	  return '/v3/history/sub-key/' + config.subscribeKey + '/message-counts/' + _utils2.default.encodeString(stringifiedChannels);
+	}
+
+	function getRequestTimeout(_ref) {
+	  var config = _ref.config;
+
+	  return config.getTransactionTimeout();
+	}
+
+	function isAuthSupported() {
+	  return true;
+	}
+
+	function prepareParams(modules, incomingParams) {
+	  var timetoken = incomingParams.timetoken,
+	      channelTimetokens = incomingParams.channelTimetokens;
+
+	  var outgoingParams = {};
+
+	  if (channelTimetokens && channelTimetokens.length === 1) {
+	    var _channelTimetokens = _slicedToArray(channelTimetokens, 1),
+	        tt = _channelTimetokens[0];
+
+	    outgoingParams.timetoken = tt;
+	  } else if (channelTimetokens) {
+	    outgoingParams.channelsTimetoken = channelTimetokens.join(',');
+	  } else if (timetoken) {
+	    outgoingParams.timetoken = timetoken;
+	  }
+
+	  return outgoingParams;
+	}
+
+	function handleResponse(modules, serverResponse) {
+	  return { channels: serverResponse.channels };
+	}
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.getOperation = getOperation;
 	exports.validateParams = validateParams;
 	exports.getURL = getURL;
@@ -4371,7 +4503,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4431,7 +4563,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function prepareParams(_ref2, incomingParams) {
 	  var config = _ref2.config;
-	  var _incomingParams$chann2 = incomingParams.channelGroups,
+	  var state = incomingParams.state,
+	      _incomingParams$chann2 = incomingParams.channelGroups,
 	      channelGroups = _incomingParams$chann2 === undefined ? [] : _incomingParams$chann2,
 	      timetoken = incomingParams.timetoken,
 	      filterExpression = incomingParams.filterExpression,
@@ -4447,6 +4580,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (filterExpression && filterExpression.length > 0) {
 	    params['filter-expr'] = filterExpression;
+	  }
+
+	  if (Object.keys(state).length) {
+	    params.state = JSON.stringify(state);
 	  }
 
 	  if (timetoken) {
@@ -4492,7 +4629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4545,7 +4682,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'nextOrigin',
 	    value: function nextOrigin() {
-	      if (this._providedFQDN.indexOf('pubsub.') === -1) {
+	      if (this._providedFQDN.indexOf('ps.') === -1) {
 	        return this._providedFQDN;
 	      }
 
@@ -4559,7 +4696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      newSubDomain = this._currentSubDomain.toString();
 
-	      return this._providedFQDN.replace('pubsub', 'ps' + newSubDomain);
+	      return this._providedFQDN.replace('ps.', 'ps' + newSubDomain + '.');
 	    }
 	  }, {
 	    key: 'hasModule',
@@ -4598,19 +4735,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_detectErrorCategory',
 	    value: function _detectErrorCategory(err) {
-	      if (err.code === 'ENOTFOUND') return _categories2.default.PNNetworkIssuesCategory;
-	      if (err.code === 'ECONNREFUSED') return _categories2.default.PNNetworkIssuesCategory;
-	      if (err.code === 'ECONNRESET') return _categories2.default.PNNetworkIssuesCategory;
-	      if (err.code === 'EAI_AGAIN') return _categories2.default.PNNetworkIssuesCategory;
+	      if (err.code === 'ENOTFOUND') {
+	        return _categories2.default.PNNetworkIssuesCategory;
+	      }
+	      if (err.code === 'ECONNREFUSED') {
+	        return _categories2.default.PNNetworkIssuesCategory;
+	      }
+	      if (err.code === 'ECONNRESET') {
+	        return _categories2.default.PNNetworkIssuesCategory;
+	      }
+	      if (err.code === 'EAI_AGAIN') {
+	        return _categories2.default.PNNetworkIssuesCategory;
+	      }
 
-	      if (err.status === 0 || err.hasOwnProperty('status') && typeof err.status === 'undefined') return _categories2.default.PNNetworkIssuesCategory;
+	      if (err.status === 0 || err.hasOwnProperty('status') && typeof err.status === 'undefined') {
+	        return _categories2.default.PNNetworkIssuesCategory;
+	      }
 	      if (err.timeout) return _categories2.default.PNTimeoutCategory;
 
-	      if (err.code === 'ETIMEDOUT') return _categories2.default.PNNetworkIssuesCategory;
+	      if (err.code === 'ETIMEDOUT') {
+	        return _categories2.default.PNNetworkIssuesCategory;
+	      }
 
 	      if (err.response) {
-	        if (err.response.badRequest) return _categories2.default.PNBadRequestCategory;
-	        if (err.response.forbidden) return _categories2.default.PNAccessDeniedCategory;
+	        if (err.response.badRequest) {
+	          return _categories2.default.PNBadRequestCategory;
+	        }
+	        if (err.response.forbidden) {
+	          return _categories2.default.PNAccessDeniedCategory;
+	        }
 	      }
 
 	      return _categories2.default.PNUnknownCategory;
@@ -4624,7 +4777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4651,7 +4804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4663,7 +4816,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.post = post;
 	exports.del = del;
 
-	var _superagent = __webpack_require__(42);
+	var _superagent = __webpack_require__(43);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -4712,6 +4865,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  return superagentConstruct.timeout(endpoint.timeout).end(function (err, resp) {
+	    var parsedResponse = void 0;
 	    var status = {};
 	    status.error = err !== null;
 	    status.operation = endpoint.operation;
@@ -4734,7 +4888,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return callback(status, null);
 	    }
 
-	    var parsedResponse = JSON.parse(resp.text);
+	    try {
+	      parsedResponse = JSON.parse(resp.text);
+	    } catch (e) {
+	      status.errorData = resp;
+	      status.error = true;
+	      return callback(status, null);
+	    }
 
 	    if (parsedResponse.error && parsedResponse.error === 1 && parsedResponse.status && parsedResponse.message && parsedResponse.service) {
 	      status.errorData = parsedResponse;
@@ -4764,7 +4924,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -4781,11 +4941,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  root = this;
 	}
 
-	var Emitter = __webpack_require__(43);
-	var RequestBase = __webpack_require__(44);
-	var isObject = __webpack_require__(45);
-	var ResponseBase = __webpack_require__(46);
-	var Agent = __webpack_require__(48);
+	var Emitter = __webpack_require__(44);
+	var RequestBase = __webpack_require__(45);
+	var isObject = __webpack_require__(46);
+	var ResponseBase = __webpack_require__(47);
+	var Agent = __webpack_require__(49);
 
 	/**
 	 * Noop.
@@ -5690,7 +5850,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -5859,7 +6019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5867,7 +6027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(45);
+	var isObject = __webpack_require__(46);
 
 	/**
 	 * Expose `RequestBase`.
@@ -6559,7 +6719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6580,7 +6740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6589,7 +6749,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Module dependencies.
 	 */
 
-	var utils = __webpack_require__(47);
+	var utils = __webpack_require__(48);
 
 	/**
 	 * Expose `ResponseBase`.
@@ -6722,7 +6882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6799,7 +6959,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	function Agent() {

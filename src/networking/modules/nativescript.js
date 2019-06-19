@@ -34,13 +34,9 @@ function xdr(method: string, url: string, params: Object, body: string, endpoint
   const httpConfig = {
     method,
     url: buildUrl(url, params),
-    timeout: endpoint.timeout
+    timeout: endpoint.timeout,
+    content: body
   };
-
-  if (method === 'GET') {
-    // $FlowFixMe
-    httpConfig.content = body;
-  }
 
   // $FlowFixMe
   return HttpRequest(httpConfig).then((response) => {

@@ -188,6 +188,13 @@ type FetchHistoryArguments = {
   count: number
 }
 
+// history
+export type MessageCounterArguments = {
+  channels: Array<string>, // fetch history from a channel
+  timetoken: number | null,
+  channelTimetokens: Array<string> | null
+}
+
 type FetchMessagesArguments = {
   channels: string, // fetch history from a channel
   start: number | string, // start timetoken for history fetching
@@ -204,6 +211,11 @@ type HistoryResponse = {
   messages: Array<HistoryItem>,
   startTimeToken: number | string,
   endTimeToken: number | string,
+}
+
+
+export type MessageCountersResponse = {
+  channels: Object
 }
 
 type HistoryV3Response = {
@@ -334,6 +346,7 @@ type SubscribeArguments = {
   timetoken: number,
   filterExpression: ?string,
   region: ?string,
+  state: Object
 }
 
 //
