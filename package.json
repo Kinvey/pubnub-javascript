@@ -75,7 +75,7 @@
     "karma-spec-reporter": "^0.0.31",
     "mocha": "^3.5.3",
     "nock": "^9.6.1",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.1",
     "phantomjs-prebuilt": "^2.1.16",
     "run-sequence": "^1.2.2",
     "sinon": "^2.4.1",
